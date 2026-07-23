@@ -42,18 +42,30 @@ const scrollToAbout = () => {
       <div>
         <h3>Rea<span>di</span>ng</h3>
         <ul>
-          <li>Explore curated collections from authors around the globe</li>
-          <li>Follow your favou<span>rite</span> poets and never miss a new stanza</li>
-          <li>Uncover trending verses and see what <span>res</span>onates with the community</li>
+          <li>
+            Dive into a rich, ever-exp<span>andi</span>ng tapestry of voices spanning continents, cultures, and traditions. From traditional haikus and structured sonnets to raw, modern free verse, our curated collections bring together the finest poetic perspectives from around the globe. Every tap uncovers a new worldview, letting you wander through oceans of rhythm, metaphor, and shared human experience without ever leaving your screen.
+          </li>
+          <li>
+          Build meaningful connections with the writers whose words speak directly to your soul. By following your favorite poets, you create a personalized feed where every new stanza, draft, or published piece reaches you the moment it’s written. Never lose track of a captivating story arc or a writer’s evolving style, and watch their creative journey unfold in real-time.  
+          </li>
+          <li>
+            Experience the collective heartbeat of our community by exploring what readers are currently loving. Discover trending poems that are sparking conversations, evoking deep emotions, and capturing the spirit of the moment. See which stanzas are receiving love, bookmark popular pieces for quiet moments, and join a vibrant global discussion built entirely around the power of language.
+          </li>
         </ul>
       </div>
 
       <div>
         <h3>Writing</h3>
         <ul>
-          <li>Publish your own poetry instantly in a clean, modern canvas</li>
-          <li>Receive authentic feed<span>ba</span>ck and love from real readers</li>
-          <li>Build your personal ar<span>chiv</span>e and track your journey as a writer</li>
+          <li>
+            Transform your raw thoughts into beautifully formatted verse with an effortless, distraction-free writing environment. Our clean, modern canvas is designed to respect your visual layout—ensuring that every line break, stanza separation, and stylistic choice displays exactly as you envisioned. Sharing your voice with the world takes just seconds, leaving you free to focus entirely on the craft of writing.
+          </li>
+          <li>
+            Step into an encouraging and passionate community that values the vulnerability of creative writing. Instead of noisy algorithms, connect with genuine poetry enthusiasts who read your work with intention. Receive thoughtful feedback, constructive engagement, and heartfelt enc<span>ouragement th</span>at inspires you to keep sharpening your pen and honing your voice.
+          </li>
+          <li>
+            Watch your artistry grow over time with a dedicated personal repository for all your work. Organize your poems into custom digital chapbooks, sav<span>e private drafts for later, and refl</span>ect on past entries to see how your voice has evolved. Your profile becomes an elegant, living portfolio—a lasting archive of every emotion, story, and stanza you’ve given to the world.
+          </li>
         </ul>
       </div>
     </div>
