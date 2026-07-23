@@ -1,0 +1,89 @@
+:root{
+  --defaultPagePadding:25px;
+  --defaultDark: #000;
+  --defaultLight:#FFF;
+  --accentColor:#3daee9;
+  --buttonPadding: 20px 65px;
+  --defaultFontSize:17px;
+  --titleFontSize:6em;
+  --subtitleFontSize:25px;
+  --transitionTime: 700ms;
+  --decorationFontSize:20em;
+  --containerDefaultWidth:1400px;
+  --textsSmallDiv: 1200px;
+  --defaultSmallPadding:15px;
+  --marginSmall:15px;
+  --defaultMargin:30px;
+}
+
+*{
+  padding:0px;
+  margin:0px;
+  box-sizing: border-box;
+  font-size: inherit;
+  font-family: inherit
+}
+
+body{
+  font-size: var(--defaultFontSize);
+    color:var(--defaultDark);
+}
+
+.page-wrapper{
+  height:100%;
+  height: 100vh;
+  width:100%;
+  box-sizing: border-box;
+}
+
+.about-wrapper .wrapper,
+.welcome-wrapper,
+.how-wrapper{
+  padding:var(--defaultSmallPadding); 
+}
+
+button{
+  padding:var(--buttonPadding);
+  background-color: var(--defaultDark);
+  color:var(--defaultLight);
+  border:1px solid var(--defaultLight);
+  border-radius: 30px;
+  transition: var(--transitionTime) all;
+}
+
+button:hover{
+   background-color: var(--defaultLight);
+  color:var(--defaultDark);
+  border:1px solid var(--defaultDark);
+    transition: var(--transitionTime) all;
+}
+
+button, a{
+  cursor: pointer;
+}
+
+.decoration{
+  font-size:var(--decorationFontSize);
+  white-space: nowrap;
+  color:var(--accentColor)
+}
+
+span {
+  background-color: var(--accentColor);
+  color: var(--defaultLight);
+}
+
+span.reverse {
+  background-color: var(--defaultLight);
+  color:var(--accentColor);
+}
+
+.title{
+  font-size: var(--titleFontSize);
+  margin-bottom:var(--marginSmall);
+}
+
+li{
+  margin-top:var(--defaultMargin);
+  list-style: none;
+}
