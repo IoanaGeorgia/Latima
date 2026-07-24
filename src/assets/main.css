@@ -14,6 +14,16 @@
   --defaultSmallPadding:15px;
   --marginSmall:15px;
   --defaultMargin:30px;
+  --bigMargin: 60px;
+  --defaultBorderRadius:12px;
+  --smallFontSize:15px;
+}
+
+@media (max-width: 650px) {
+  :root {
+    --titleFontSize:3em;
+    --decorationFontSize:11rem;
+  }
 }
 
 *{
@@ -21,12 +31,12 @@
   margin:0px;
   box-sizing: border-box;
   font-size: inherit;
-  font-family: inherit
 }
 
 body{
   font-size: var(--defaultFontSize);
     color:var(--defaultDark);
+      font-family: 'Playfair Display', serif;
 }
 
 .page-wrapper{
@@ -38,8 +48,11 @@ body{
 
 .about-wrapper .wrapper,
 .welcome-wrapper,
-.how-wrapper{
+.how-wrapper,
+.top-wrapper,
+.community-wrapper{
   padding:var(--defaultSmallPadding); 
+  padding-top:var(--bigMargin);
 }
 
 button{
@@ -86,4 +99,46 @@ span.reverse {
 li{
   margin-top:var(--defaultMargin);
   list-style: none;
+}
+
+.container{
+  border:2px solid var(--defaultDark);
+  border-radius: var(--defaultBorderRadius);
+  padding:var(--defaultSmallPadding);
+  padding-top:var(--defaultMargin);
+  position: relative;
+}
+
+.container.poem{
+  width:320px;
+  min-width: 320px;
+}
+
+.subtitle{
+  font-size:var(--subtitleFontSize);
+  font-weight: bold;
+}
+
+.note{
+  font-size: var(--smallFontSize);
+}
+
+.poem .content{
+  margin-bottom:var(--bigMargin);
+}
+
+
+.poem .content p {
+  margin-bottom:var(--smallFontSize)
+}
+
+.poem .content p:last-of-type{
+  margin-bottom: 0px;
+}
+
+.author-name{
+  display: inline-block;
+  max-width:50px;
+  overflow: clip;
+  text-overflow: ellipsis;
 }

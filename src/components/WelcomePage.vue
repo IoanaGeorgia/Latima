@@ -1,7 +1,11 @@
-<script setup lang="ts">
-defineProps<{
 
+<script setup lang="ts">
+import PoemSymbol from './PoemSymbol.vue';
+import { usePoemStore } from '@/stores/poems'
+defineProps<{
 }>()
+
+const poemStore = usePoemStore()
 
 const scrollToAbout = () => {
   const element = document.getElementById('about')
@@ -72,6 +76,49 @@ const scrollToAbout = () => {
   </div>
 </div>
 
+<div class="top-wrapper">
+    <div class="wrapper">
+      <p class="title">Most r<span>ea</span>d</p>
+    <div class="top-poems">
+      <div class="poem container" v-for="poem in poemStore.poems">
+        <p class="subtitle">{{poem.title}}</p>
+        <div class="content" v-html="poem.text"></div>
+
+        <div class="poem-footer"><div class="wrapper">
+        <p class="author note">Written by <span class="author-name"> {{ poem.author }}</span> in <span>{{ poem.main_category }}</span></p>
+        
+        <div class="tags note">
+          <p>Tags: </p>
+          <div>
+          <div v-for="tag in poem.tags.slice(0,6)" :key="tag">
+            #{{ tag }} 
+          </div>
+          </div>
+        </div>
+
+      </div>
+
+              <PoemSymbol :category="poem.main_category"></PoemSymbol>
+              </div>
+      </div>
+    </div>
+    </div>
+
+</div>
+
+
+<div class="community-wrapper">
+     <div class="wrapper">
+      <div class="texts">
+        <p class="title">A com<span class="reverse">munit</span>y</p>
+        <p>People all over the world can submit poems and hace access to others.</p>
+        <p>This is a place to connect and show people what they feel has been felt by people all over the world, for ages.</p>
+
+      </div>
+      <div class="decoration">⋆˙⟡</div>
+     </div>
+    </div>
+
   </div>
 </template>
 
@@ -114,6 +161,12 @@ const scrollToAbout = () => {
   gap:var(--defaultSmallPadding);
 }
 
+@media(max-width:560px){
+  .about-wrapper .wrapper{
+    flex-direction: column;
+  }
+}
+
 .about-wrapper .wrapper .texts{
   max-width:800px;
   width:100%;
@@ -150,4 +203,143 @@ const scrollToAbout = () => {
 }
 
 
+.top-wrapper .wrapper{
+  max-width:var(--containerDefaultWidth);
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  gap:var(--defaultSmallPadding);
+}
+
+
+.top-wrapper .wrapper .top-poems{
+  max-width:var(--containerDefaultWidth);
+  width:100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: start;
+  align-items: start;
+  margin: auto;
+  gap:var(--defaultSmallPadding);
+  margin-top:var(--bigMargin);
+  width:max-content;
+}
+
+
+@media(max-width:1414px){
+  .top-wrapper .wrapper .top-poems{
+    width:max-content;
+    max-width: max-content;
+    display: grid;
+    grid-template-columns: repeat(2, 320px);
+    justify-items: center; 
+    align-items: start;
+    margin: auto;
+    gap: var(--defaultSmallPadding);
+    margin-top: var(--bigMargin);
+    }
+
+}
+
+@media(max-width:700px){
+  .top-wrapper .wrapper .top-poems{
+    width:max-content;
+    max-width: max-content;
+    display: grid;
+    grid-template-columns: repeat(1, 320px);
+    justify-items: center; 
+    align-items: start;
+    margin: auto;
+    gap: var(--defaultSmallPadding);
+    margin-top: var(--bigMargin);
+    }
+
+    .how-wrapper .list-wrapper{
+      flex-direction: column;
+    }
+
+}
+
+.top-wrapper .poem{
+  display: flex;
+  flex-direction: column;
+  gap:var(--defaultSmallPadding);
+  align-items: center;
+}
+
+.top-wrapper .poem .subtitle{
+  text-align: center;
+  margin-bottom:var(--defaultMargin)
+}
+
+.author, .tags{
+  width:100%;
+}
+
+ .tags p{
+  font-weight: bold;
+}
+
+ .tags{
+  display: flex;
+  gap:5px;
+ }
+
+ .tags > div{
+  width:100%;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items:center;
+  gap:var(--defaultSmallPadding);
+  padding:0px, var(--defaultSmallPadding);
+}
+
+.poem-footer{
+  width:100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap:var(--defaultSmallPadding)
+}
+
+.poem-footer .wrapper{
+    gap:5px;
+}
+
+
+
+.community-wrapper{
+  min-height: 500px;
+  background-color: var(--defaultDark);
+  color:var(--defaultLight);
+   display: flex;
+  justify-content:  center;
+  align-items: center;
+}
+
+.community-wrapper .wrapper{
+  max-width:var(--containerDefaultWidth);
+  width:100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  color:var(--defaultLight);
+  gap:var(--defaultSmallPadding);
+}
+
+@media(max-width:1045px){
+  .community-wrapper .wrapper{
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.community-wrapper .wrapper .texts{
+  max-width:800px;
+  width:100%;
+}
 </style>
