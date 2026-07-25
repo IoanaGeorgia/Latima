@@ -17,6 +17,7 @@
   --bigMargin: 60px;
   --defaultBorderRadius:12px;
   --smallFontSize:15px;
+  --headerHeight:97px;
 }
 
 @media (max-width: 650px) {
@@ -68,6 +69,24 @@ button:hover{
    background-color: var(--defaultLight);
   color:var(--defaultDark);
   border:1px solid var(--defaultDark);
+    transition: var(--transitionTime) all;
+}
+
+
+
+button.reverse{
+  padding:var(--buttonPadding);
+  background-color: var(--defaultLight);
+  color:var(--defaultDark);
+  border:1px solid var(--defaultDark);
+  border-radius: 30px;
+  transition: var(--transitionTime) all;
+}
+
+button.reverse:hover{
+   background-color: var(--defaultDark);
+  color:var(--defaultLight);
+  border:1px solid var(--defaultLight);
     transition: var(--transitionTime) all;
 }
 
@@ -141,4 +160,66 @@ li{
   max-width:50px;
   overflow: clip;
   text-overflow: ellipsis;
+}
+
+header{
+  width:100%;
+  padding:var(--defaultSmallPadding);
+  z-index: 9999
+}
+
+header > div{
+  max-width:var(--containerDefaultWidth);
+  width:100%;
+  margin:auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header {
+  position: fixed;
+}
+
+header .buttons{
+  display: flex;
+  gap:var(--defaultSmallPadding);
+}
+
+
+header .logo{
+  font-size:40px;
+  background-color: var(--defaultLight);
+}
+
+header .buttons button{
+  padding:2px 45px;
+  font-size:25px;
+}
+
+header .buttons .search-wrapper button{
+  border:none;
+  background-color: var(--defaultLight);
+  color:var(--defaultDark);
+  padding: 5px 15px;
+
+
+}
+header input{
+  margin-right:5px;
+}
+
+input{
+  border:1px solid var(--defaultDark);
+  border-radius: 45px;
+  padding:10px 15px;
+  outline: none;
+  transition: var(--transitionTime) all;
+}
+
+input:focus{
+   background-color: var(--defaultDark);
+    color:var(--defaultLight);
+    border:1px solid var(--defaultLight);
+    transition: var(--transitionTime) all;
 }

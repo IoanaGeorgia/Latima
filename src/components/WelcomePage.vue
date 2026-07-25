@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import PoemSymbol from './PoemSymbol.vue';
 import { usePoemStore } from '@/stores/poems'
+import { RouterLink} from 'vue-router'
 defineProps<{
 }>()
 
@@ -79,6 +80,9 @@ const scrollToAbout = () => {
 <div class="top-wrapper">
     <div class="wrapper">
       <p class="title">Most r<span>ea</span>d</p>
+
+      <button>See all poems</button>
+
     <div class="top-poems">
       <div class="poem container" v-for="poem in poemStore.poems">
         <p class="subtitle">{{poem.title}}</p>
@@ -113,7 +117,7 @@ const scrollToAbout = () => {
         <p class="title">A com<span class="reverse">munit</span>y</p>
         <p>People all over the world can submit poems and hace access to others.</p>
         <p>This is a place to connect and show people what they feel has been felt by people all over the world, for ages.</p>
-
+        <button class="reverse">Learn more</button>
       </div>
       <div class="decoration">⋆˙⟡</div>
      </div>
@@ -170,6 +174,10 @@ const scrollToAbout = () => {
 .about-wrapper .wrapper .texts{
   max-width:800px;
   width:100%;
+}
+
+.how-wrapper{
+  background-color: #FFF;
 }
 
 .how-wrapper .wrapper > p{
@@ -329,6 +337,10 @@ const scrollToAbout = () => {
   margin: auto;
   color:var(--defaultLight);
   gap:var(--defaultSmallPadding);
+}
+
+.community-wrapper button{
+  margin-top:var(--defaultSmallPadding);
 }
 
 @media(max-width:1045px){
