@@ -1,49 +1,60 @@
-:root{
-  --defaultPagePadding:25px;
+:root {
+  --defaultPagePadding: 25px;
   --defaultDark: #000;
-  --defaultLight:#FFF;
-  --accentColor:#3daee9;
+  --defaultLight: #FFF;
+  --accentColor: #3daee9;
   --buttonPadding: 20px 65px;
-  --defaultFontSize:17px;
-  --titleFontSize:6em;
-  --subtitleFontSize:25px;
+  --defaultFontSize: 17px;
+  --titleFontSize: 6em;
+  --subtitleFontSize: 25px;
   --transitionTime: 700ms;
-  --decorationFontSize:20em;
-  --containerDefaultWidth:1400px;
+  --decorationFontSize: 20em;
+  --containerDefaultWidth: 1400px;
   --textsSmallDiv: 1200px;
-  --defaultSmallPadding:15px;
-  --marginSmall:15px;
-  --defaultMargin:30px;
+  --defaultSmallPadding: 15px;
+  --marginSmall: 15px;
+  --defaultMargin: 30px;
   --bigMargin: 60px;
-  --defaultBorderRadius:12px;
-  --smallFontSize:15px;
-  --headerHeight:97px;
+  --defaultBorderRadius: 12px;
+  --smallFontSize: 15px;
+  --headerHeight: 97px;
 }
 
 @media (max-width: 650px) {
   :root {
-    --titleFontSize:3em;
-    --decorationFontSize:11rem;
+    --titleFontSize: 3em;
+    --decorationFontSize: 11rem;
   }
 }
 
-*{
-  padding:0px;
-  margin:0px;
+* {
+  padding: 0px;
+  margin: 0px;
   box-sizing: border-box;
   font-size: inherit;
 }
 
-body{
+body {
   font-size: var(--defaultFontSize);
-    color:var(--defaultDark);
-      font-family: 'Playfair Display', serif;
+  color: var(--defaultDark);
+  font-family: 'Playfair Display', serif;
 }
 
-.page-wrapper{
-  height:100%;
+button,
+a {
+  cursor: pointer;
+}
+
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.page-wrapper {
+  height: 100%;
   height: 100vh;
-  width:100%;
+  width: 100%;
   box-sizing: border-box;
 }
 
@@ -51,53 +62,54 @@ body{
 .welcome-wrapper,
 .how-wrapper,
 .top-wrapper,
-.community-wrapper{
-  padding:var(--defaultSmallPadding); 
-  padding-top:var(--bigMargin);
+.community-wrapper {
+  padding: var(--defaultSmallPadding);
+  padding-top: var(--bigMargin);
 }
 
-button{
-  padding:var(--buttonPadding);
+button {
+  padding: var(--buttonPadding);
   background-color: var(--defaultDark);
-  color:var(--defaultLight);
-  border:1px solid var(--defaultLight);
+  color: var(--defaultLight);
+  border: 1px solid var(--defaultLight);
   border-radius: 30px;
   transition: var(--transitionTime) all;
 }
 
-button:hover{
-   background-color: var(--defaultLight);
-  color:var(--defaultDark);
-  border:1px solid var(--defaultDark);
-    transition: var(--transitionTime) all;
-}
-
-
-
-button.reverse{
-  padding:var(--buttonPadding);
+button:hover {
   background-color: var(--defaultLight);
-  color:var(--defaultDark);
-  border:1px solid var(--defaultDark);
+  color: var(--defaultDark);
+  border: 1px solid var(--defaultDark);
+  transition: var(--transitionTime) all;
+}
+
+
+
+button.reverse {
+  padding: var(--buttonPadding);
+  background-color: var(--defaultLight);
+  color: var(--defaultDark);
+  border: 1px solid var(--defaultDark);
   border-radius: 30px;
   transition: var(--transitionTime) all;
 }
 
-button.reverse:hover{
-   background-color: var(--defaultDark);
-  color:var(--defaultLight);
-  border:1px solid var(--defaultLight);
-    transition: var(--transitionTime) all;
+button.reverse:hover {
+  background-color: var(--defaultDark);
+  color: var(--defaultLight);
+  border: 1px solid var(--defaultLight);
+  transition: var(--transitionTime) all;
 }
 
-button, a{
+button,
+a {
   cursor: pointer;
 }
 
-.decoration{
-  font-size:var(--decorationFontSize);
+.decoration {
+  font-size: var(--decorationFontSize);
   white-space: nowrap;
-  color:var(--accentColor)
+  color: var(--accentColor)
 }
 
 span {
@@ -107,71 +119,71 @@ span {
 
 span.reverse {
   background-color: var(--defaultLight);
-  color:var(--accentColor);
+  color: var(--accentColor);
 }
 
-.title{
+.title {
   font-size: var(--titleFontSize);
-  margin-bottom:var(--marginSmall);
+  margin-bottom: var(--marginSmall);
 }
 
-li{
-  margin-top:var(--defaultMargin);
+li {
+  margin-top: var(--defaultMargin);
   list-style: none;
 }
 
-.container{
-  border:2px solid var(--defaultDark);
+.container {
+  border: 2px solid var(--defaultDark);
   border-radius: var(--defaultBorderRadius);
-  padding:var(--defaultSmallPadding);
-  padding-top:var(--defaultMargin);
+  padding: var(--defaultSmallPadding);
+  padding-top: var(--defaultMargin);
   position: relative;
 }
 
-.container.poem{
-  width:320px;
+.container.poem {
+  width: 320px;
   min-width: 320px;
 }
 
-.subtitle{
-  font-size:var(--subtitleFontSize);
+.subtitle {
+  font-size: var(--subtitleFontSize);
   font-weight: bold;
 }
 
-.note{
+.note {
   font-size: var(--smallFontSize);
 }
 
-.poem .content{
-  margin-bottom:var(--bigMargin);
+.poem .content {
+  margin-bottom: var(--bigMargin);
 }
 
 
 .poem .content p {
-  margin-bottom:var(--smallFontSize)
+  margin-bottom: var(--smallFontSize)
 }
 
-.poem .content p:last-of-type{
+.poem .content p:last-of-type {
   margin-bottom: 0px;
 }
 
-.author-name{
+.author-name {
   display: inline-block;
-  max-width:50px;
+  max-width: 50px;
   overflow: clip;
   text-overflow: ellipsis;
 }
 
-header{
-  width:100%;
-  padding:var(--defaultSmallPadding);
+header {
+  width: 100%;
+  padding: var(--defaultSmallPadding);
   z-index: 9999
 }
 
-header > div{
-  max-width:var(--containerDefaultWidth);
-  width:100%;
-  margin:auto;
+header>div {
+  max-width: var(--containerDefaultWidth);
+  width: 100%;
+  margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -181,45 +193,158 @@ header {
   position: fixed;
 }
 
-header .buttons{
+header .buttons {
   display: flex;
-  gap:var(--defaultSmallPadding);
+  gap: var(--defaultSmallPadding);
 }
 
 
-header .logo{
-  font-size:40px;
+header .logo {
+  font-size: 40px;
   background-color: var(--defaultLight);
 }
 
-header .buttons button{
-  padding:2px 45px;
-  font-size:25px;
+header .buttons button {
+  padding: 2px 45px;
+  font-size: 25px;
 }
 
-header .buttons .search-wrapper button{
-  border:none;
+header .buttons .search-wrapper button,
+header .buttons button.all-poems {
+  border: none;
   background-color: var(--defaultLight);
-  color:var(--defaultDark);
+  color: var(--defaultDark);
   padding: 5px 15px;
 
 
 }
-header input{
-  margin-right:5px;
+
+
+header .buttons button.all-poems:hover {
+  background-color: var(--defaultDark);
+  color: var(--defaultLight)
 }
 
-input{
-  border:1px solid var(--defaultDark);
+header input {
+  margin-right: 5px;
+}
+
+header button.mobileMenu {
+  display: none;
+}
+
+header .mobile-menu-wrapper {
+  display: none;
+}
+
+@media(max-width:734px) {
+  header .buttons.desktop {
+    display: none;
+  }
+
+  header button.mobileMenu {
+    display: block;
+    padding: 5px 45px;
+    font-size: 25px;
+  }
+
+  header .mobile-menu-wrapper {
+    display: block;
+    padding: var(--defaultPagePadding);
+    width: 100%;
+    max-width: 300px;
+    background-color: var(--defaultLight);
+    position: absolute;
+    top: var(--headerHeight);
+    right: var(--defaultSmallPadding);
+    border: 1px solid var(--defaultDark);
+    border-radius: 5px;
+  }
+
+  header .mobile-menu-wrapper .buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: var(--defaultSmallPadding);
+
+  }
+
+  header .search-wrapper {
+    display: flex;
+  }
+
+  header .search-wrapper input {
+    max-width: 250px;
+    width: 100%;
+  }
+}
+
+input {
+  border: 1px solid var(--defaultDark);
   border-radius: 45px;
-  padding:10px 15px;
+  padding: 10px 15px;
   outline: none;
+  transition: var(--transitionTime) all;
+  font-size: var(--smallFontSize);
+}
+
+input:focus {
+  background-color: var(--defaultDark);
+  color: var(--defaultLight);
+  border: 1px solid var(--defaultLight);
   transition: var(--transitionTime) all;
 }
 
-input:focus{
-   background-color: var(--defaultDark);
-    color:var(--defaultLight);
-    border:1px solid var(--defaultLight);
-    transition: var(--transitionTime) all;
+
+.poem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--defaultSmallPadding);
+  align-items: center;
+}
+
+.poem .subtitle {
+  text-align: center;
+  margin-bottom: var(--defaultMargin)
+}
+
+.author,
+.tags {
+  width: 100%;
+}
+
+.tags p {
+  font-weight: bold;
+  min-width: max-content;
+}
+
+.tags {
+  display: flex;
+  gap: 5px;
+}
+
+.tags>div {
+  width: 100%;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--defaultSmallPadding);
+  padding: 0px, var(--defaultSmallPadding);
+}
+
+.poem-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--defaultSmallPadding)
+}
+
+.poem-footer .wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 5px;
 }

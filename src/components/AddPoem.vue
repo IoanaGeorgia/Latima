@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import PoemSymbol from './PoemSymbol.vue';
 import { usePoemStore } from '@/stores/poems'
-import { RouterLink } from 'vue-router'
 import { ref } from 'vue'
+import TopRead from './TopRead.vue'
 defineProps<{
 }>()
 
@@ -29,7 +28,7 @@ const symbols:Record<string, string> ={
 let poem =ref({
   title:"",
   text:"",
-  tags:['cat', 'dog', 'cat', 'dog','cat', 'dog','cat', 'dog'] as string[],
+  tags:['cat', 'dog'] as string[],
   categories:[] as string[],
   main_category:"",
   author:"default"
@@ -47,7 +46,9 @@ const autoResize = (event:any) => {
 
 const addTags = (event:any) =>{
   if(event.target.value && event.target.value.length > 2){
-    poem.value.tags.push(event.target.value.trim());
+    let tempSet = new Set(poem.value.tags)
+    tempSet.add(event.target.value.trim())
+    poem.value.tags = [...tempSet]
     event.target.value=""
   }
 
@@ -59,10 +60,7 @@ const toggleMainDropdown = () =>{
 }
 
 const selectMainCategory = (name:string | undefined) =>{
-  console.log('here')
-
   if(name){
-
     catDropdownMainValue.value = name
     poem.value.main_category = name
     isOpenMain.value =false
@@ -70,7 +68,6 @@ const selectMainCategory = (name:string | undefined) =>{
 
 
 }
-
 
 const toggleDropdown = () =>{
   isOpen.value = !isOpen.value
@@ -93,6 +90,23 @@ const selectCategory = (name:string | undefined) =>{
 
 }
 
+const deleteCat = (name:string | undefined) =>{
+
+  if(name){
+  poem.value.categories = poem.value.categories.filter(cat =>( cat !== name))
+
+  }
+}
+
+
+const deleteTag = (name:string | undefined) =>{
+
+  if(name){
+  poem.value.tags = poem.value.tags.filter(tag =>( tag !== name))
+
+  }
+}
+
 </script>
 
 <template>
@@ -105,10 +119,10 @@ const selectCategory = (name:string | undefined) =>{
       <form class="container" @submit.prevent>
         <div class="input-wrapper">
           <label>Poem title:</label>
-          <input type="text" v-model="poem.title" />
+          <input type="text" v-model="poem.title" placeholder="Write the title here..." />
         </div>
 
-        <div class="input-wrapper" @input="autoResize">
+        <div class="input-wrapper" @input="autoResize" placeholder="Write here the content of your poem...">
           <label>Poem body:</label>
           <textarea />
         </div>
@@ -117,7 +131,10 @@ const selectCategory = (name:string | undefined) =>{
           <div class="input-wrapper">
           <label>Main category:</label>
           <div class="cat-dropdown">
-            <p @click="toggleMainDropdown"><span>{{ catDropdownMainValue}}</span></p>
+            <p class="main-btn" @click="toggleMainDropdown"><span>{{ catDropdownMainValue}}</span>
+            <div v-if="isOpenMain" class="arrow opened">〉</div>
+              <div v-else class="arrow closed">〉</div>
+            </p>
             <div v-if="isOpenMain" class="options">
               <div v-for="(symbol, name) in symbols" :key="name"  @click="selectMainCategory(name)">
                 <span>{{ symbol }}{{ name }}</span>
@@ -130,9 +147,12 @@ const selectCategory = (name:string | undefined) =>{
         <div class="input-wrapper">
           <label>Categories:</label>
           <div class="cat-dropdown">
-            <p @click="toggleDropdown"><span>{{ catDropdownValue}}</span></p>
+            <p class="main-btn" @click="toggleDropdown"><span>{{ catDropdownValue}}</span>
+              <div v-if="isOpen" class="arrow opened">〉</div>
+              <div v-else class="arrow closed">〉</div>
+            </p>
             <div v-if="isOpen" class="options">
-              <div v-for="(symbol, name) in symbols" :key="name"  @click="selectCategory(name)">
+              <div  v-for="(symbol, name) in symbols" :key="name"  @click="selectCategory(name)">
                 <span>{{ symbol }}{{ name }}</span>
               </div>
             </div>
@@ -141,18 +161,18 @@ const selectCategory = (name:string | undefined) =>{
 
           <div class="categories">
             <div v-if="!poem.categories.length">No categories selected</div>
-            <div v-else v-for="(name) in poem.categories" :key="name">
-                <span>{{ symbols[name] }}{{ name }}</span>
+            <div class="tag" v-else v-for="(name) in poem.categories" :key="name">
+                <span>{{ symbols[name] }}{{ name }}</span>  <button class="close-tag" @click="deleteCat(name)">×</button>
               </div>
           </div>
         </div>
 
         <div class="input-wrapper" >
           <label>Tags (up to 10):</label>
-          <input type="text" @keydown.enter.prevent="addTags" />
+          <input type="text" @keydown.enter.prevent="addTags" placeholder="Add tags (max 10 tags)" />
           <div class="input tags">
             <div class="tag" v-for="tag in poem.tags.slice(0, 10)" >
-              #{{ tag }}
+              #{{ tag }}  <button class="close-tag" @click="deleteTag(tag)">×</button>
             </div>
           </div>
         </div>
@@ -161,6 +181,7 @@ const selectCategory = (name:string | undefined) =>{
 
       </form>
     </div>
+    <TopRead></TopRead>
   </div>
 </template>
 
@@ -168,6 +189,7 @@ const selectCategory = (name:string | undefined) =>{
 .add-poem .title-wrapper {
   background-color: var(--defaultDark);
   color: var(--defaultLight);
+
   min-height: 40vh;
   padding: var(--defaultPagePadding);
   text-align: center;
@@ -205,21 +227,23 @@ const selectCategory = (name:string | undefined) =>{
 
 .form-wrapper input, .form-wrapper textarea{
   border-radius: 7px;
+  border: 1px solid var(--defaultDark);
 }
 
 .form-wrapper input:focus, .form-wrapper textarea:focus{
   background-color: inherit;
   color:inherit;
-  border: 1px solid var(--defaultDark);
 }
 
 .form-wrapper textarea{
 resize: none;
   overflow-y: hidden; 
-  min-height: 100px;   
+  min-height: 200px;   
   box-sizing: border-box;
   outline: none;
     padding:10px 15px;
+      font-size:var(--smallFontSize);
+      color: var(--defaultDark);
 
 }
 
@@ -242,6 +266,61 @@ resize: none;
 
 }
 
+.cat-dropdown .main-btn{
+  display: flex;
+  justify-content: space-between;
+  gap:var(--defaultSmallPadding);
+  align-items: center;
+  cursor: pointer;
+}
+
+.cat-dropdown .arrow.closed{
+  line-height:10px;
+  transform: rotate(-90deg);
+}
+
+.cat-dropdown .arrow.opened{
+  line-height:10px;
+  transform: rotate(90deg);
+}
+
+.categories  .tag{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 150px;
+  gap:5px;
+  margin-top:5px;
+}
+
+
+.categories .close-tag{
+  background-color: transparent;
+  border:none;
+  padding:5px 5px;
+  color:var(--defaultDark)
+}
+
+.tags  .tag{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 150px;
+  width:fit-content;
+  gap:2px;
+  margin-top:5px;
+}
+
+
+.tags .close-tag{
+  background-color: transparent;
+  border:none;
+  padding:5px 5px;
+  color:var(--defaultDark);
+}
+
+
+
 .cat-dropdown .options{
      border:1px solid var(--defaultDark);
        margin-top:var(--defaultSmallPadding);
@@ -255,6 +334,7 @@ resize: none;
         padding:var(--defaultSmallPadding);
         padding-top:0px;
         border-radius: 6px;
+        z-index:30;
 }
 
 .cat-dropdown .options span{

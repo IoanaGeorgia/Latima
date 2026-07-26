@@ -25,3 +25,20 @@ export const usePoemStore = defineStore('poem', () => {
     setPoems
   }
 })
+
+
+export const useUiStore = defineStore('ui', () => {
+  const isSideMenuOpen = ref(false)
+  const activePoem = ref<any>(null)
+
+  function openMenu(poem: any) {
+    activePoem.value = poem
+    isSideMenuOpen.value = true
+  }
+
+  function closeMenu() {
+    isSideMenuOpen.value = false
+  }
+
+  return { isSideMenuOpen, activePoem, openMenu, closeMenu }
+})
