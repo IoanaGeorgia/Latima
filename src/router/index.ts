@@ -2,6 +2,7 @@ import WelcomePage from '@/components/WelcomePage.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import AddPoem from '@/components/AddPoem.vue'
 import Poems from '@/components/Poems.vue'
+import SearchPage from '@/components/SearchPage.vue'
 
 
 const router = createRouter({
@@ -22,6 +23,11 @@ const router = createRouter({
       path: '/poems',
       name: 'poems',
       component: Poems,
+    },
+    {
+      path: '/search/:term',
+      name: 'searchPage',
+      component: SearchPage,
     },
   ],
 })

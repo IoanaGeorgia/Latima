@@ -1,15 +1,54 @@
 <script setup lang="ts">
 import { usePoemStore } from '@/stores/poems'
 import { RouterLink } from 'vue-router'
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import router from '@/router';
 defineProps<{
 }>()
 
 const isMobileOpen = ref(false)
 
+const poemStore = usePoemStore()
+
+
+
 const toggleMobileMenu = () => {
   isMobileOpen.value = !isMobileOpen.value
 }
+
+const searchTerm = ref("")
+const debouncedSearchTerm = ref<string>('')
+let timeoutId:any = null
+
+
+watch(searchTerm, (newVal) => {
+  clearTimeout(timeoutId)
+  timeoutId = setTimeout(() => {
+    debouncedSearchTerm.value = newVal;
+  
+  }, 300)
+})
+
+const sendSearch = () =>{
+  if(debouncedSearchTerm){
+    router.push({ 
+    name: 'searchPage', 
+    params: { term:debouncedSearchTerm.value } 
+  })
+  }
+}
+
+const sendSearchDirect = () =>{
+  if(searchTerm){
+    router.push({ 
+    name: 'searchPage', 
+    params: { term:searchTerm.value } 
+  })
+  }
+}
+
+
+
 
 </script>
 
@@ -22,8 +61,8 @@ const toggleMobileMenu = () => {
       </RouterLink>
       <div class="buttons desktop">
         <div class="search-wrapper">
-          <input type="text" placeholder="Type here to search"></input>
-          <button class="search-btn">🔍︎
+          <input v-model.trim="searchTerm" type="text" placeholder="Type here to search" @keyup.enter="sendSearchDirect"></input>
+          <button class="search-btn" @click="sendSearch">🔍︎
 
           </button>
         </div>

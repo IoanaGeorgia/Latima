@@ -3,17 +3,70 @@
 import { usePoemStore } from '@/stores/poems'
 import Poem from './Poem.vue';
 import { useUiStore } from '@/stores/poems';
-import { onUnmounted } from 'vue';
+import { computed, onMounted, onUnmounted, reactive, watch } from 'vue';
+import { useRoute } from 'vue-router';
+
+
 
 defineProps<{
 }>()
 
+export interface Poem {
+  id: any
+  title: string
+  text: string
+  author:string
+  main_category: string
+  tags:string[]
+  categories:string[]
+}
+
 const uiStore = useUiStore();
 const poemStore = usePoemStore()
+const route = useRoute()
+const searchTerm = computed(() => {
+  const term = route.params?.term;
+  return typeof term === 'string' ? term : '';
+});
+
+const searchedPoems = reactive<Poem[]>([])
 
 onUnmounted(()=>{
   uiStore.closeMenu()
 })
+
+onMounted(()=>{
+  searchTermFunc()
+
+})
+
+
+const searchTermFunc = () =>{
+  if(searchTerm.value && typeof searchTerm.value === "string"){
+      for(let poem of poemStore.poems){
+        if(poem.tags){ 
+          let tagHasQuery = poem.tags.find(tag =>(tag.toLowerCase().includes(searchTerm.value.toLowerCase())))
+            if(tagHasQuery){
+              searchedPoems.push(poem)
+             
+            }
+        }
+        
+      }
+
+      
+  }
+}
+
+
+watch(
+  () => route.params.term,
+  () => {
+    searchedPoems.length = 0; 
+    searchTermFunc();       
+  }
+);
+
 
 </script>
 
@@ -21,11 +74,14 @@ onUnmounted(()=>{
   <div class="page-wrapper">
     
 <div class="all-wrapper">
-    <div class="wrapper">
-    <div v-if="poemStore.poems && poemStore.poems.length" class="top-poems">
-      <Poem v-for="poem in poemStore.poems" :poem="poem"></Poem>
+    <div v-if="searchTerm" class="wrapper">
+    <div v-if="searchedPoems.length " class="top-poems">
+      <Poem v-for="poem in searchedPoems" :poem="poem"></Poem>
     </div>
     <div v-else class="error">No poems available</div>
+    </div>
+    <div v-else>
+      <p>No search terms found</p>
     </div>
 
 </div>
