@@ -53,7 +53,7 @@ a {
 
 .page-wrapper {
   height: 100%;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   box-sizing: border-box;
 }
@@ -62,7 +62,8 @@ a {
 .welcome-wrapper,
 .how-wrapper,
 .top-wrapper,
-.community-wrapper {
+.community-wrapper,
+.all-wrapper {
   padding: var(--defaultSmallPadding);
   padding-top: var(--bigMargin);
 }
@@ -141,8 +142,8 @@ li {
 }
 
 .container.poem {
-  width: 320px;
-  min-width: 320px;
+  width: 100%;
+  max-width: 320px;
 }
 
 .subtitle {
@@ -207,6 +208,13 @@ header .logo {
 header .buttons button {
   padding: 2px 45px;
   font-size: 25px;
+  max-width:123px;
+  width:100%;
+}
+
+header .buttons button.search-btn{
+  max-width: unset;
+  width: unset;
 }
 
 header .buttons .search-wrapper button,
@@ -237,6 +245,15 @@ header .mobile-menu-wrapper {
   display: none;
 }
 
+ header .search-wrapper {
+    display: flex;
+  }
+
+  header .search-wrapper input {
+    max-width: 250px;
+    width: 100%;
+  }
+  
 @media(max-width:734px) {
   header .buttons.desktop {
     display: none;
@@ -270,14 +287,6 @@ header .mobile-menu-wrapper {
 
   }
 
-  header .search-wrapper {
-    display: flex;
-  }
-
-  header .search-wrapper input {
-    max-width: 250px;
-    width: 100%;
-  }
 }
 
 input {
@@ -347,4 +356,77 @@ input:focus {
   justify-content: center;
   align-items: flex-start;
   gap: 5px;
+}
+
+footer{
+  position: relative;
+}
+
+
+.top-wrapper .wrapper {
+  max-width: var(--containerDefaultWidth);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  gap: var(--defaultSmallPadding);
+}
+
+
+.top-wrapper .wrapper .top-poems {
+  max-width: var(--containerDefaultWidth);
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: start;
+  align-items: start;
+  margin: auto;
+  gap: var(--defaultSmallPadding);
+  margin-top: var(--bigMargin);
+  width: max-content;
+}
+
+
+@media(max-width:1414px) {
+  .top-wrapper .wrapper .top-poems {
+    width: max-content;
+    max-width: max-content;
+    display: grid;
+    grid-template-columns: repeat(2, 320px);
+    justify-items: center;
+    align-items: start;
+    margin: auto;
+    gap: var(--defaultSmallPadding);
+    margin-top: var(--bigMargin);
+  }
+
+}
+
+@media(max-width:700px) {
+  .top-wrapper .wrapper .top-poems {
+    width: 100%;
+    max-width: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: start;
+    margin: auto;
+    gap: var(--defaultSmallPadding);
+    margin-top: var(--bigMargin);
+  }
+
+  .how-wrapper .list-wrapper {
+    flex-direction: column;
+  }
+
+}
+
+.top-wrapper .error {
+  min-height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }

@@ -99,9 +99,6 @@ const scrollToAbout = () => {
       </div>
     </div>
 
-    <TopRead></TopRead>
-
-
     <div class="community-wrapper">
       <div class="wrapper">
         <div class="texts">
@@ -116,6 +113,9 @@ const scrollToAbout = () => {
         <div class="decoration">⋆˙⟡</div>
       </div>
     </div>
+
+    <TopRead></TopRead>
+
 
   </div>
 </template>
@@ -134,6 +134,8 @@ const scrollToAbout = () => {
   gap: 60px;
   width: 100%;
   height: 100%;
+  padding-top: var(--headerHeight);
+  min-height: 100vh;
 
 }
 
@@ -198,7 +200,7 @@ const scrollToAbout = () => {
   max-width: var(--textsSmallDiv);
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin: auto;
   gap: var(--defaultSmallPadding);
   margin-top: var(--defaultMargin);
@@ -234,6 +236,14 @@ const scrollToAbout = () => {
   .community-wrapper .wrapper {
     flex-direction: column;
     text-align: center;
+  }
+}
+
+@media(max-width:694px) {
+
+  .how-wrapper .list-wrapper {
+    flex-direction: column;
+    gap: var(--defaultPagePadding);
   }
 }
 

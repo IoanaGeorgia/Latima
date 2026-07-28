@@ -5,6 +5,7 @@ import { poems } from '@/data.js'
 import { usePoemStore } from '@/stores/poems'
 import Header from './components/Header.vue'
 import SideMenu from './components/SideMenu.vue'
+import Footer from './components/Footer.vue'
 
 const poemStore = usePoemStore()
 
@@ -15,15 +16,14 @@ onMounted(()=>{
 
 <template>
 
-   <!-- <RouterLink to="/">Home</RouterLink>
-  <RouterLink to="/about">About</RouterLink> -->
   <Header/>
   <SideMenu/>
+  <main>
   <div>
   <RouterView />
   </div>
+  </main>
+  <Footer />
+  
 </template>
 
-<style scoped>
-
-</style>

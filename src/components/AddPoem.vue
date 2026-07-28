@@ -2,6 +2,7 @@
 import { usePoemStore } from '@/stores/poems'
 import { ref } from 'vue'
 import TopRead from './TopRead.vue'
+import Loader from './Loader.vue'
 defineProps<{
 }>()
 
@@ -28,7 +29,7 @@ const symbols:Record<string, string> ={
 let poem =ref({
   title:"",
   text:"",
-  tags:['cat', 'dog'] as string[],
+  tags:[] as string[],
   categories:[] as string[],
   main_category:"",
   author:"default"
@@ -37,6 +38,8 @@ let isOpenMain = ref(false)
 let catDropdownMainValue = ref("Search value")
 let isOpen = ref(false)
 let catDropdownValue = ref("Search value")
+let isLoading=ref(false)
+let isSubmitted = ref(false)
 
 const autoResize = (event:any) => {
   const el = event.target;
@@ -65,8 +68,6 @@ const selectMainCategory = (name:string | undefined) =>{
     poem.value.main_category = name
     isOpenMain.value =false
   }
-
-
 }
 
 const toggleDropdown = () =>{
@@ -77,27 +78,20 @@ const toggleDropdown = () =>{
 const selectCategory = (name:string | undefined) =>{
 
   if(name){
-
     catDropdownValue.value = name
-
     let tempSet =  new Set(poem.value.categories)
-
     tempSet.add(name)
     poem.value.categories = [...tempSet]
     isOpen.value =false
   }
-
-
 }
 
 const deleteCat = (name:string | undefined) =>{
-
   if(name){
   poem.value.categories = poem.value.categories.filter(cat =>( cat !== name))
 
   }
 }
-
 
 const deleteTag = (name:string | undefined) =>{
 
@@ -105,6 +99,16 @@ const deleteTag = (name:string | undefined) =>{
   poem.value.tags = poem.value.tags.filter(tag =>( tag !== name))
 
   }
+}
+
+const submitForm = () => {
+  isLoading.value = true;
+  isSubmitted.value = true;
+  setTimeout(()=>{
+
+    isLoading.value = false
+  }, 2000)
+
 }
 
 </script>
@@ -115,7 +119,16 @@ const deleteTag = (name:string | undefined) =>{
       <p class="title">Make your own p<span class="reverse">oe</span>m</p>
     </div>
 
-    <div class="form-wrapper">
+    <div v-if="isSubmitted">
+          <Loader v-if="isLoading" />
+          <div v-else class="submitted">
+            <p><strong>Thank you for your submission!</strong></p>
+            <p>We will review it in 3-5 working days and let you knows further ahead if there are any issues</p>
+            <div>𓆏</div>
+          </div>
+
+    </div>
+    <div v-else class="form-wrapper">
       <form class="container" @submit.prevent>
         <div class="input-wrapper">
           <label>Poem title:</label>
@@ -177,7 +190,7 @@ const deleteTag = (name:string | undefined) =>{
           </div>
         </div>
 
-        <button>Save</button>
+        <button @click="submitForm">Save</button>
 
       </form>
     </div>
@@ -202,6 +215,7 @@ const deleteTag = (name:string | undefined) =>{
 
 .form-wrapper{
   padding:var(--defaultPagePadding);
+  margin-top: var(--bigMargin);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -343,4 +357,23 @@ resize: none;
   margin-top:var(--defaultSmallPadding)
 }
 
+
+.submitted{
+  min-height:855px;
+   max-width:400px;
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:var(--defaultPagePadding);
+  text-align:center;
+  margin:auto;
+  padding:var(--defaultSmallPadding);
+}
+
+.submitted div{
+  font-size:6rem;
+  color:var(--accentColor);
+}
 </style>

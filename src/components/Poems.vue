@@ -3,13 +3,40 @@
 import { usePoemStore } from '@/stores/poems'
 import Poem from './Poem.vue';
 import { useUiStore } from '@/stores/poems';
-import { onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
+import Loader from './Loader.vue';
+import Error from './Error.vue';
 
 defineProps<{
 }>()
 
+export interface Poem {
+  id: any
+  title: string
+  text: string
+  author:string
+  main_category: string
+  tags:string[]
+  categories:string[]
+}
+
 const uiStore = useUiStore();
-const poemStore = usePoemStore()
+
+ const poemStore = usePoemStore()
+
+let poems = ref<Poem[]>([]);
+
+let isLoading = ref(false)
+
+onMounted(()=>{
+  isLoading.value = true
+setTimeout(()=>{
+  poems.value = poemStore.poems
+  isLoading.value = false
+}, 2000)
+})
+
+
 
 onUnmounted(()=>{
   uiStore.closeMenu()
@@ -19,13 +46,16 @@ onUnmounted(()=>{
 
 <template>
   <div class="page-wrapper">
+
+  
     
 <div class="all-wrapper">
-    <div class="wrapper">
-    <div v-if="poemStore.poems && poemStore.poems.length" class="top-poems">
-      <Poem v-for="poem in poemStore.poems" :poem="poem"></Poem>
+  <Loader v-if="isLoading" />
+    <div  v-else class="wrapper">
+    <div v-if="poems && poems.length" class="top-poems">
+      <Poem v-for="poem in poems" :poem="poem"></Poem>
     </div>
-    <div v-else class="error">No poems available</div>
+    <Error v-else />
     </div>
 
 </div>
@@ -44,7 +74,6 @@ onUnmounted(()=>{
   align-items: center;
   margin: auto;
   gap:var(--defaultSmallPadding);
-  padding-top:var(--headerHeight);
     padding-bottom:var(--headerHeight);
 }
 
@@ -80,10 +109,10 @@ onUnmounted(()=>{
 
 @media(max-width:700px){
   .all-wrapper .wrapper .top-poems{
-    width:max-content;
+    width:100%;
     max-width: max-content;
-    display: grid;
-    grid-template-columns: repeat(1, 320px);
+    display: flex;
+    flex-direction: column;
     justify-items: center; 
     align-items: start;
     margin: auto;
