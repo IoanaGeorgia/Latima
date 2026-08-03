@@ -12,6 +12,8 @@ export interface Poem {
   categories:string[]
 }
 
+
+
 export const usePoemStore = defineStore('poem', () => {
  
   const poems = ref<Poem[]>([])
@@ -26,6 +28,27 @@ export const usePoemStore = defineStore('poem', () => {
   }
 })
 
+
+export interface User {
+  name:string
+  created: string
+  in_submission: number
+}
+
+
+export const useUserStore = defineStore('user', () => {
+ 
+  const user = ref<User | null>(null)
+
+  function setUser(newUser:User ) {
+    user.value  = newUser
+  }
+
+  return {
+    user,
+    setUser
+  }
+})
 
 export const useUiStore = defineStore('ui', () => {
   const isSideMenuOpen = ref(false)

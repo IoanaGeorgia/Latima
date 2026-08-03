@@ -63,7 +63,8 @@ a {
 .how-wrapper,
 .top-wrapper,
 .community-wrapper,
-.all-wrapper {
+.all-wrapper,
+.account-wrapper {
   padding: var(--defaultSmallPadding);
   padding-top: var(--bigMargin);
 }
@@ -208,11 +209,11 @@ header .logo {
 header .buttons button {
   padding: 2px 45px;
   font-size: 25px;
-  max-width:123px;
-  width:100%;
+  max-width: 123px;
+  width: 100%;
 }
 
-header .buttons button.search-btn{
+header .buttons button.search-btn {
   max-width: unset;
   width: unset;
 }
@@ -245,15 +246,15 @@ header .mobile-menu-wrapper {
   display: none;
 }
 
- header .search-wrapper {
-    display: flex;
-  }
+header .search-wrapper {
+  display: flex;
+}
 
-  header .search-wrapper input {
-    max-width: 250px;
-    width: 100%;
-  }
-  
+header .search-wrapper input {
+  max-width: 250px;
+  width: 100%;
+}
+
 @media(max-width:734px) {
   header .buttons.desktop {
     display: none;
@@ -358,7 +359,7 @@ input:focus {
   gap: 5px;
 }
 
-footer{
+footer {
   position: relative;
 }
 
@@ -428,5 +429,48 @@ footer{
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
+}
+
+
+.account-innerWrapper {
+  max-width: var(--containerDefaultWidth);
+  width: 100%;
+  margin: auto;
+  margin-top: var(--headerHeight)
+}
+
+.account-wrapper .title {
+  min-height: 200px;
+}
+
+.account-wrapper .info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--defaultSmallPadding);
+  font-weight: bold;
+}
+
+.account-wrapper .your-poems {
+  margin-top: var(--defaultPagePadding);
+}
+
+.account-wrapper .your-poems .subtitle {
+  text-align: center;
+  margin-bottom: var(--defaultPagePadding);
+  margin-top: var(--headerHeight);
+}
+
+
+.account-wrapper .your-poems .wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--defaultSmallPadding);
+}
+
+.account-wrapper .your-poems .smallDecoration {
+  color: var(--accentColor);
+  font-size: 2.5rem;
   text-align: center;
 }

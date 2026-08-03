@@ -1,9 +1,5 @@
-import WelcomePage from '@/components/WelcomePage.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import AddPoem from '@/components/AddPoem.vue'
-import Poems from '@/components/Poems.vue'
-import SearchPage from '@/components/SearchPage.vue'
-
+import WelcomePage from '@/components/WelcomePage.vue' 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,18 +13,23 @@ const router = createRouter({
     {
       path: '/add-poem',
       name: 'addPoem',
-      component: AddPoem,
+      component: () => import('@/components/AddPoem.vue'),
     },
     {
       path: '/poems',
       name: 'poems',
-      component: Poems,
+      component: () => import('@/components/Poems.vue'),
     },
     {
       path: '/search/:term',
       name: 'searchPage',
-      component: SearchPage,
+      component: () => import('@/components/SearchPage.vue'),
     },
+    {
+      path:'/account',
+      name:'account',
+      component: () => import('@/components/Account.vue')
+    }
   ],
 })
 
