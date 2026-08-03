@@ -1,0 +1,1 @@
+import{S as e,_ as t,f as n,h as r,r as i,y as a}from"./index-DjnQrqlb.js";var o={class:`error`},s=i(a({__name:`Error`,setup(i){return(i,a)=>(e(),r(`div`,o,[...a[0]||=[t(`No poems available `,-1),n(`div`,null,`𓇢𓆸`,-1)]]))}}),[[`__scopeId`,`data-v-52e90db3`]]);export{s as t};
