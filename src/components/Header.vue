@@ -73,7 +73,7 @@ const sendSearchDirect = () => {
           </button>
         </div>
         <RouterLink to="/add-poem"> <button class="reverse">🖍</button></RouterLink>
-        <button class="reverse">𖠋</button>
+         <RouterLink to="/account"><button class="reverse">𖠋</button></RouterLink>
         <RouterLink to="/poems"> <button class="reverse all-poems">🕮</button></RouterLink>
       </div>
 
@@ -82,7 +82,7 @@ const sendSearchDirect = () => {
         <div class="buttons">
 
           <RouterLink to="/add-poem"> <button class="reverse">🖍</button></RouterLink>
-          <button class="reverse">𖠋</button>
+          <RouterLink to="/account"><button class="reverse">𖠋</button></RouterLink>
           <RouterLink to="/poems"> <button class="reverse">🕮</button></RouterLink>
           <div class="search-wrapper">
             <input v-model.trim="searchTerm" type="text" placeholder="Type here to search"
