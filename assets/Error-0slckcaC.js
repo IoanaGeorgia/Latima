@@ -1,0 +1,1 @@
+import{C as e,b as t,g as n,p as r,r as i,v as a}from"./index-BJGrDo2b.js";var o={class:`error`},s=i(t({__name:`Error`,setup(t){return(t,i)=>(e(),n(`div`,o,[...i[0]||=[a(`No poems available `,-1),r(`div`,null,`𓇢𓆸`,-1)]]))}}),[[`__scopeId`,`data-v-52e90db3`]]);export{s as t};
