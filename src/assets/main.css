@@ -440,9 +440,6 @@ footer {
   margin-top: var(--headerHeight)
 }
 
-.account-wrapper .title {
-  min-height: 200px;
-}
 
 .account-wrapper .info {
   display: flex;
@@ -455,7 +452,7 @@ footer {
   margin-top: var(--defaultPagePadding);
 }
 
-.account-wrapper .your-poems .subtitle {
+.account-wrapper .your-poems > .subtitle {
   text-align: center;
   margin-bottom: var(--defaultPagePadding);
   margin-top: var(--headerHeight);
@@ -467,6 +464,7 @@ footer {
   justify-content: center;
   align-items: flex-start;
   gap: var(--defaultSmallPadding);
+  flex-wrap: wrap;
 }
 
 .account-wrapper .your-poems .smallDecoration {
