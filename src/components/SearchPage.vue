@@ -91,10 +91,13 @@ watch(
     <Loader v-if="isLoading" />
     <div v-else class="all-wrapper">
       <div v-if="searchTerm" class="wrapper">
-        <div v-if="searchedPoems.length" class="top-poems">
-          <Poem v-for="poem in searchedPoems" :poem="poem"></Poem>
+        <div v-if="searchedPoems.length"  v-masonry transition-duration="300ms" fit-width="true" item-selector=".item" class="masonry-container masonryWrap"
+          gutter="20">
+          <div v-masonry-tile class="item" :key="index" v-for="(poem, index) in searchedPoems">
+            <Poem :key="index" :poem="poem" />
+          </div>
         </div>
-      <Error v-else />
+        <Error v-else></Error>
       </div>
       <div v-else>
         <p>No search terms found</p>
@@ -106,63 +109,22 @@ watch(
 </template>
 
 <style scoped>
-.all-wrapper .wrapper {
-  max-width: var(--containerDefaultWidth);
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-  gap: var(--defaultSmallPadding);
-  padding-top: var(--headerHeight);
-  padding-bottom: var(--headerHeight);
+
+.all-wrapper .wrapper{
+  max-width:var(--containerDefaultWidth);
+  width:100%;
+  margin:auto;
+  margin-top:var(--headerHeight);
+}
+
+.all-wrapper .masonryWrap{
+  margin:auto;
 }
 
 
-.all-wrapper .wrapper .top-poems {
-  max-width: var(--containerDefaultWidth);
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  justify-content: start;
-  align-items: start;
-  margin: auto;
-  gap: var(--defaultSmallPadding);
-  margin-top: var(--bigMargin);
-  width: max-content;
+.all-wrapper .masonryWrap .item{
+  padding-top:20px;
 }
 
-
-@media(max-width:1414px) {
-  .all-wrapper .wrapper .top-poems {
-    width: max-content;
-    max-width: max-content;
-    display: grid;
-    grid-template-columns: repeat(2, 320px);
-    justify-items: center;
-    align-items: start;
-    margin: auto;
-    gap: var(--defaultSmallPadding);
-    margin-top: var(--bigMargin);
-  }
-
-}
-
-@media(max-width:700px) {
-  .all-wrapper .wrapper .top-poems {
-    width: max-content;
-    max-width: max-content;
-    display: grid;
-    grid-template-columns: repeat(1, 100%);
-    justify-items: center;
-    align-items: start;
-    margin: auto;
-    gap: var(--defaultSmallPadding);
-    margin-top: var(--bigMargin);
-  }
-
-
-}
 
 </style>

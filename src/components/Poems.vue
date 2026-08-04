@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { usePoemStore } from '@/stores/poems'
-import Poem from './Poem.vue';
-import { useUiStore } from '@/stores/poems';
-import { onMounted, onUnmounted, ref } from 'vue';
-import Loader from './Loader.vue';
-import Error from './Error.vue';
+import { usePoemStore, useUiStore } from '@/stores/poems'
+import Poem from './Poem.vue'
+import Loader from './Loader.vue'
+import Error from './Error.vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
-defineProps<{
-}>()
+defineProps<{}>()
 
 export interface Poem {
   id: any
@@ -19,12 +17,10 @@ export interface Poem {
   categories: string[]
 }
 
-const uiStore = useUiStore();
-
+const uiStore = useUiStore()
 const poemStore = usePoemStore()
 
-let poems = ref<Poem[]>([]);
-
+let poems = ref<Poem[]>([])
 let isLoading = ref(false)
 
 onMounted(() => {
@@ -35,93 +31,50 @@ onMounted(() => {
   }, 2000)
 })
 
-
-
 onUnmounted(() => {
   uiStore.closeMenu()
 })
-
 </script>
 
 <template>
   <div class="page-wrapper">
-
-
-
     <div class="all-wrapper">
       <Loader v-if="isLoading" />
-      <div v-else class="wrapper">
-        <div v-if="poems && poems.length" class="top-poems">
-          <Poem v-for="poem in poems" :poem="poem"></Poem>
+      <div v-else class="your-poems">
+        <div v-if="poems.length" v-masonry transition-duration="300ms" fit-width="true" item-selector=".item"
+          class="masonry-container" gutter="20">
+          <div v-masonry-tile class="item" :key="index" v-for="(poem, index) in poems">
+            <Poem :key="index" :poem="poem" />
+          </div>
         </div>
-        <Error v-else />
+        <Error v-else></Error>
+
       </div>
-
     </div>
-
   </div>
 </template>
 
 <style scoped>
-.all-wrapper .wrapper {
+.all-wrapper {
   max-width: var(--containerDefaultWidth);
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-  gap: var(--defaultSmallPadding);
+  margin: 0 auto;
   padding-bottom: var(--headerHeight);
 }
 
 
-.all-wrapper .wrapper .top-poems {
-  max-width: var(--containerDefaultWidth);
+.your-poems {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  justify-content: start;
-  align-items: start;
-  margin: auto;
-  gap: var(--defaultSmallPadding);
   margin-top: var(--bigMargin);
-  width: max-content;
+}
+
+.your-poems>div {
+  margin: auto;
 }
 
 
-@media(max-width:1414px) {
-  .all-wrapper .wrapper .top-poems {
-    width: max-content;
-    max-width: max-content;
-    display: grid;
-    grid-template-columns: repeat(2, 320px);
-    justify-items: center;
-    align-items: start;
-    margin: auto;
-    gap: var(--defaultSmallPadding);
-    margin-top: var(--bigMargin);
-  }
-
-}
-
-@media(max-width:700px) {
-  .all-wrapper .wrapper .top-poems {
-    width: 100%;
-    max-width: max-content;
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    align-items: start;
-    margin: auto;
-    gap: var(--defaultSmallPadding);
-    margin-top: var(--bigMargin);
-  }
-
-  .how-wrapper .list-wrapper {
-    flex-direction: column;
-  }
-
+.poem-card {
+  margin-bottom: 40px;
 }
 
 .all-wrapper .error {
@@ -130,5 +83,9 @@ onUnmounted(() => {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.all-wrapper .item {
+  padding-top: 20px;
 }
 </style>

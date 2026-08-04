@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "homepage":"https://IoanaGeorgia.github.io/Latima",
+  "homepage": "https://IoanaGeorgia.github.io/Latima",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -17,6 +17,8 @@
   "dependencies": {
     "pinia": "^4.0.2",
     "vue": "^3.5.40",
+    "vue-masonry": "^0.16.0",
+    "vue-masonry-css": "^1.0.3",
     "vue-router": "^5.2.0"
   },
   "devDependencies": {

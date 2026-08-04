@@ -18,10 +18,14 @@ const poemStore = usePoemStore()
 
         <RouterLink to="/poems"><button>See all poems</button></RouterLink>
 
-        <div v-if="poemStore.poems && poemStore.poems.length" class="top-poems">
-          <Poem v-for="poem in poemStore.poems.slice(0, 4)" :poem="poem"></Poem>
+        <div v-if="poemStore.poems.length" v-masonry transition-duration="300ms" fit-width="true" item-selector=".item"
+          class="masonry-container masonryWrap" gutter="20">
+          <div v-masonry-tile class="item" :key="index" v-for="(poem, index) in poemStore.poems.slice(0, 4)">
+            <Poem :key="index" :poem="poem" />
+          </div>
         </div>
-        <div v-else class="error">No poems available</div>
+        <p v-else>No poems found.</p>
+
       </div>
 
     </div>
@@ -29,6 +33,4 @@ const poemStore = usePoemStore()
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

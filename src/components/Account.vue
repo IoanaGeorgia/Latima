@@ -38,8 +38,11 @@ const poemsByAuthor = computed(() => {
         <div class="smallDecoration">𓇼 ⋆.˚ 𓆉 𓆝 𓆡⋆.˚ 𓇼</div>
         <p class="subtitle">Your poems:</p>
 
-        <div v-if="poemsByAuthor.length" class="wrapper">
-          <Poem v-for="poem in poemsByAuthor" :key="poem.id" :poem="poem" />
+        <div v-if="poemsByAuthor.length" v-masonry transition-duration="300ms" fit-width="true" item-selector=".item"
+          class="masonry-container" gutter="20">
+          <div v-masonry-tile class="item" :key="index" v-for="(poem, index) in poemsByAuthor">
+            <Poem :key="index" :poem="poem" />
+          </div>
         </div>
         <p v-else>No poems found.</p>
 

@@ -376,47 +376,18 @@ footer {
 }
 
 
-.top-wrapper .wrapper .top-poems {
-  max-width: var(--containerDefaultWidth);
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  justify-content: start;
-  align-items: start;
-  margin: auto;
-  gap: var(--defaultSmallPadding);
+.top-wrapper .masonryWrap {
   margin-top: var(--bigMargin);
-  width: max-content;
+}
+
+.top-wrapper .masonryWrap .item {
+  padding-top: 20px;
 }
 
 
-@media(max-width:1414px) {
-  .top-wrapper .wrapper .top-poems {
-    width: max-content;
-    max-width: max-content;
-    display: grid;
-    grid-template-columns: repeat(2, 320px);
-    justify-items: center;
-    align-items: start;
-    margin: auto;
-    gap: var(--defaultSmallPadding);
-    margin-top: var(--bigMargin);
-  }
 
-}
 
 @media(max-width:700px) {
-  .top-wrapper .wrapper .top-poems {
-    width: 100%;
-    max-width: max-content;
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    align-items: start;
-    margin: auto;
-    gap: var(--defaultSmallPadding);
-    margin-top: var(--bigMargin);
-  }
 
   .how-wrapper .list-wrapper {
     flex-direction: column;
@@ -450,21 +421,24 @@ footer {
 
 .account-wrapper .your-poems {
   margin-top: var(--defaultPagePadding);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.account-wrapper .your-poems > .subtitle {
+.account-wrapper .your-poems>.subtitle {
   text-align: center;
   margin-bottom: var(--defaultPagePadding);
   margin-top: var(--headerHeight);
 }
 
 
-.account-wrapper .your-poems .wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: var(--defaultSmallPadding);
-  flex-wrap: wrap;
+.account-wrapper .your-poems>.wrapper {
+  margin: auto;
+}
+
+.account-wrapper .your-poems>.item {
+  padding-top: 20px;
 }
 
 .account-wrapper .your-poems .smallDecoration {
