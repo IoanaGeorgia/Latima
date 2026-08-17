@@ -50,6 +50,26 @@ export const useUserStore = defineStore('user', () => {
   }
 })
 
+export interface Categories{
+  name:string
+  symbol:string
+}
+
+
+export const useCategoriesStore = defineStore('categories', () => {
+ 
+  const categories = ref<Categories[] | null>(null)
+
+  function setCategories(newCategories:[] ) {
+    categories.value  = newCategories
+  }
+
+  return {
+    categories,
+    setCategories
+  }
+})
+
 export const useUiStore = defineStore('ui', () => {
   const isSideMenuOpen = ref(false)
   const activePoem = ref<any>(null)

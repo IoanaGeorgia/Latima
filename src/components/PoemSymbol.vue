@@ -1,25 +1,30 @@
-
 <script setup lang="ts">
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useCategoriesStore } from '@/stores/poems'
+
 const props = defineProps<{
   category: string
 }>()
-  const symbols:Record<string, string> ={
-    "love":"𖹭",
-    "sad":"𓁿",
-    "nature":"𓋼𓍊",
-    "life":"𓊝",
-    "happiness":"⋆˙⟡",
-    "friends":"𓀤𓀥",
-    "family":"⾕"
+
+const categoriesStore = useCategoriesStore()
+
+const { categories } = storeToRefs(categoriesStore)
+
+const symbol = computed(() => {
+  if (!categories.value || !Array.isArray(categories.value)) {
+    return '｡˚○'
   }
 
+  const found = categories.value.find(
+    (cat) => cat.name.toLowerCase() === props.category?.toLowerCase()
+  )
 
-let symbol = symbols[props.category] ?? "｡˚○"
-
+  return found?.symbol ?? '｡˚○'
+})
 </script>
 
 <template>
-
   <div class="symbol-wrapper">
     <span>
       <div>
@@ -27,16 +32,12 @@ let symbol = symbols[props.category] ?? "｡˚○"
       </div>
     </span>
   </div>
-
 </template>
+
 <style scoped>
-
-
-
-.symbol-wrapper div{
-  font-size:50px;
-    color: var(--accentColor);
+.symbol-wrapper div {
+  font-size: 50px;
+  color: var(--accentColor);
   line-height: 0px;
 }
-
 </style>

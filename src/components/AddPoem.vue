@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePoemStore } from '@/stores/poems'
+import { usePoemStore, useCategoriesStore } from '@/stores/poems'
 import { ref } from 'vue'
 import TopRead from './TopRead.vue'
 import Loader from './Loader.vue'
@@ -15,16 +15,9 @@ const scrollToAbout = () => {
   }
 }
 
-const symbols:Record<string, string> ={
-    "love":"𖹭",
-    "sad":"𓁿",
-    "nature":"𓋼𓍊",
-    "life":"𓊝",
-    "happiness":"⋆˙⟡",
-    "friends":"𓀤𓀥",
-    "family":"⾕"
-  }
+const categoriesStore = useCategoriesStore()
 
+const categories = categoriesStore.categories
 
 let poem =ref({
   title:"",
@@ -101,14 +94,42 @@ const deleteTag = (name:string | undefined) =>{
   }
 }
 
-const submitForm = () => {
-  isLoading.value = true;
-  isSubmitted.value = true;
-  setTimeout(()=>{
+const submitForm = async () => {
+  if (!poem.value.title || !poem.value.text) {
+    return
+  }
 
+  isLoading.value = true
+
+  try {
+    const response = await fetch('/api/poems', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(poem.value)
+    })
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+    const result = await response.json()
+    console.log('Poem saved successfully:', result.data)
+    isSubmitted.value = true
+  } catch (error) {
+    console.error('Failed to submit poem:', error)
+  } finally {
     isLoading.value = false
-  }, 2000)
+  }
+}
 
+
+function getCategorySymbol(categoryName: string){
+  if (!categories.value) return ''
+  const found = categories.value.find(
+    (cat) => cat.name.toLowerCase() === categoryName?.toLowerCase()
+  )
+  return found ? found.symbol : ''
 }
 
 </script>
@@ -135,10 +156,14 @@ const submitForm = () => {
           <input type="text" v-model="poem.title" placeholder="Write the title here..." />
         </div>
 
-        <div class="input-wrapper" @input="autoResize" placeholder="Write here the content of your poem...">
-          <label>Poem body:</label>
-          <textarea />
-        </div>
+          <div class="input-wrapper">
+            <label>Poem body:</label>
+            <textarea 
+              v-model="poem.text" 
+              @input="autoResize" 
+              placeholder="Write here the content of your poem..." 
+            />
+          </div>
 
 
           <div class="input-wrapper">
@@ -149,8 +174,8 @@ const submitForm = () => {
               <div v-else class="arrow closed">〉</div>
             </p>
             <div v-if="isOpenMain" class="options">
-              <div v-for="(symbol, name) in symbols" :key="name"  @click="selectMainCategory(name)">
-                <span>{{ symbol }}{{ name }}</span>
+              <div v-for="(category) in categories" :key="category.id"  @click="selectMainCategory(category.name)">
+                <span>{{ category.symbol }} {{category.name}}</span>
               </div>
             </div>
 
@@ -165,8 +190,8 @@ const submitForm = () => {
               <div v-else class="arrow closed">〉</div>
             </p>
             <div v-if="isOpen" class="options">
-              <div  v-for="(symbol, name) in symbols" :key="name"  @click="selectCategory(name)">
-                <span>{{ symbol }}{{ name }}</span>
+              <div  v-for="(category) in categories" :key="category.id"  @click="selectCategory(category.name)">
+                <span>{{ category.symbol }} {{category.name}}</span>
               </div>
             </div>
 
@@ -175,7 +200,7 @@ const submitForm = () => {
           <div class="categories">
             <div v-if="!poem.categories.length">No categories selected</div>
             <div class="tag" v-else v-for="(name) in poem.categories" :key="name">
-                <span>{{ symbols[name] }}{{ name }}</span>  <button class="close-tag" @click="deleteCat(name)">×</button>
+                <span>{{ getCategorySymbol(name) }}{{ name }}</span>  <button class="close-tag" @click="deleteCat(name)">×</button>
               </div>
           </div>
         </div>
