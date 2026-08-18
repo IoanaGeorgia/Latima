@@ -13,14 +13,14 @@ defineProps<{
           <div>𓍊</div>
           <div>𓋼</div>
           <div>𓍊</div>
-          <div>𖡼</div>
+          <div>𓍊</div>
           <div>.</div>
-          <div>𖤣</div>
-          <div>𖥧</div>
-          <div>𖡼</div>
+          <div>𓍊</div>
+          <div>𓍊</div>
+          <div>𓍊</div>
           <div>.</div>
-          <div>𖤣</div>
-          <div>𖥧</div>
+          <div>𓍊</div>
+          <div>𓍊</div>
           <div>𓋼</div>
           <div>𓍊</div>
           <div>𓋼</div>

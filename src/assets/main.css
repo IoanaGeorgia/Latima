@@ -145,6 +145,7 @@ li {
 .container.poem {
   width: 100%;
   max-width: 320px;
+  min-width:320px;
 }
 
 .subtitle {

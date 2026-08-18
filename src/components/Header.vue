@@ -72,22 +72,22 @@ const sendSearchDirect = () => {
 
           </button>
         </div>
-        <RouterLink to="/add-poem"> <button class="reverse">🖍</button></RouterLink>
-         <RouterLink to="/account"><button class="reverse">𖠋</button></RouterLink>
-        <RouterLink to="/poems"> <button class="reverse all-poems">🕮</button></RouterLink>
+        <RouterLink to="/add-poem"> <button class="reverse"  aria-label="Add a poem" title="Add a poem">🖍</button></RouterLink>
+         <RouterLink to="/account"><button class="reverse"  aria-label="Go to account" title="Account">𓍊𓋼𓍊</button></RouterLink>
+        <RouterLink to="/poems"> <button class="reverse all-poems"  aria-label="See all poems" title="See all poems">🕮</button></RouterLink>
       </div>
 
       <button class="mobileMenu" @click="toggleMobileMenu"> ≡</button>
       <div v-if="isMobileOpen" class="mobile-menu-wrapper">
         <div class="buttons">
 
-          <RouterLink to="/add-poem"> <button class="reverse">🖍</button></RouterLink>
-          <RouterLink to="/account"><button class="reverse">𖠋</button></RouterLink>
-          <RouterLink to="/poems"> <button class="reverse">🕮</button></RouterLink>
+          <RouterLink to="/add-poem"> <button class="reverse" aria-label="Add a poem" title="Add a poem">🖍</button></RouterLink>
+          <RouterLink to="/account"><button class="reverse" aria-label="Go to account" title="Account">𓍊𓋼𓍊</button></RouterLink>
+          <RouterLink to="/poems"> <button class="reverse" aria-label="See all poems" title="See all poems">🕮</button></RouterLink>
           <div class="search-wrapper">
             <input v-model.trim="searchTerm" type="text" placeholder="Type here to search"
               @keyup.enter="sendSearchDirect"></input>
-            <button class="search-btn" @click="sendSearch">🔍︎
+            <button class="search-btn" @click="sendSearch" aria-label="search" title="search">🔍︎
 
             </button>
           </div>
