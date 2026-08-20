@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
-import { user } from '@/data.js'
 import { usePoemStore, useUserStore, useCategoriesStore } from '@/stores/poems'
 
 import Header from './components/Header.vue'
@@ -13,9 +12,32 @@ const userStore = useUserStore()
 const categoriesStore = useCategoriesStore()
 
 onMounted(async () => {
-  userStore.setUser(user)
-  await Promise.all([getPoems(), getCategories()])
+  await Promise.all([getUser(), getPoems(), getCategories()])
 })
+
+async function getUser(){
+  const userInfo = localStorage.getItem("user");
+  try{
+    const response = await fetch("/api/getUser", {
+      method:"POST",
+       headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ secret: userInfo })
+    })
+
+    if(!response.ok){
+      console.log("User couldn't be fetched")
+    }
+
+    const result = await response.json()
+    userStore.setUser(result.data)
+  }
+  catch(err){
+    console.log("User couldn't be fetched")
+  }
+}
+
 
 async function getPoems(): Promise<void> {
   try {

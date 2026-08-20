@@ -114,7 +114,7 @@ a {
   color: var(--accentColor)
 }
 
-span {
+/* span {
   background-color: var(--accentColor);
   color: var(--defaultLight);
 }
@@ -122,7 +122,7 @@ span {
 span.reverse {
   background-color: var(--defaultLight);
   color: var(--accentColor);
-}
+} */
 
 .title {
   font-size: var(--titleFontSize);
@@ -175,120 +175,6 @@ li {
   max-width: 50px;
   overflow: clip;
   text-overflow: ellipsis;
-}
-
-header {
-  width: 100%;
-  padding: var(--defaultSmallPadding);
-  z-index: 9999
-}
-
-header>div {
-  max-width: var(--containerDefaultWidth);
-  width: 100%;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header {
-  position: fixed;
-}
-
-header .buttons {
-  display: flex;
-  gap: var(--defaultSmallPadding);
-}
-
-
-header .logo {
-  font-size: 40px;
-  background-color: var(--defaultLight);
-}
-
-header .buttons button {
-  padding: 2px 45px;
-  font-size: 25px;
-  max-width: 123px;
-  width: 100%;
-}
-
-header .buttons button.search-btn {
-  max-width: unset;
-  width: unset;
-}
-
-header .buttons .search-wrapper button,
-header .buttons button.all-poems {
-  border: none;
-  background-color: var(--defaultLight);
-  color: var(--defaultDark);
-  padding: 5px 15px;
-
-
-}
-
-
-header .buttons button.all-poems:hover {
-  background-color: var(--defaultDark);
-  color: var(--defaultLight)
-}
-
-header input {
-  margin-right: 5px;
-}
-
-header button.mobileMenu {
-  display: none;
-}
-
-header .mobile-menu-wrapper {
-  display: none;
-}
-
-header .search-wrapper {
-  display: flex;
-}
-
-header .search-wrapper input {
-  max-width: 250px;
-  width: 100%;
-}
-
-@media(max-width:734px) {
-  header .buttons.desktop {
-    display: none;
-  }
-
-  header button.mobileMenu {
-    display: block;
-    padding: 5px 45px;
-    font-size: 25px;
-  }
-
-  header .mobile-menu-wrapper {
-    display: block;
-    padding: var(--defaultPagePadding);
-    width: 100%;
-    max-width: 300px;
-    background-color: var(--defaultLight);
-    position: absolute;
-    top: var(--headerHeight);
-    right: var(--defaultSmallPadding);
-    border: 1px solid var(--defaultDark);
-    border-radius: 5px;
-  }
-
-  header .mobile-menu-wrapper .buttons {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: var(--defaultSmallPadding);
-
-  }
-
 }
 
 input {
@@ -446,4 +332,202 @@ footer {
   color: var(--accentColor);
   font-size: 2.5rem;
   text-align: center;
+}
+
+.title-wrapper {
+  background-color: var(--defaultDark);
+  color: var(--defaultLight);
+  min-height: 40vh;
+  padding: var(--defaultPagePadding);
+  text-align: center;
+  padding-top: var(--headerHeight);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.form-wrapper {
+  padding: var(--defaultPagePadding);
+  margin-top: var(--bigMargin);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-wrapper .note{
+  max-width:700px;
+  width:100%;
+  margin:auto;
+  padding:var(--defaultSmallPadding);
+  text-align: center;
+}
+
+.form-wrapper form.container {
+  max-width: 800px;
+  width: 100%;
+  padding: var(--defaultPagePadding);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--defaultPagePadding);
+}
+
+.form-wrapper .input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--defaultSmallPadding);
+  width: 100%;
+}
+
+.form-wrapper input,
+.form-wrapper textarea {
+  border-radius: 7px;
+  border: 1px solid var(--defaultDark);
+}
+
+.form-wrapper input:focus,
+.form-wrapper textarea:focus {
+  background-color: inherit;
+  color: inherit;
+}
+
+.form-wrapper textarea {
+  resize: none;
+  overflow-y: hidden;
+  min-height: 200px;
+  box-sizing: border-box;
+  outline: none;
+  padding: 10px 15px;
+  font-size: var(--smallFontSize);
+  color: var(--defaultDark);
+}
+
+.tags {
+  width: 100%;
+  display: flex;
+  gap: var(--defaultSmallPadding);
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.cat-dropdown {
+  position: relative;
+  border: 1px solid var(--defaultDark);
+  border-radius: 10px;
+  padding: 5px 15px;
+  width: 100%;
+  max-width: fit-content;
+}
+
+.cat-dropdown .main-btn {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--defaultSmallPadding);
+  align-items: center;
+  cursor: pointer;
+}
+
+.cat-dropdown .arrow.closed {
+  line-height: 10px;
+  transform: rotate(-90deg);
+}
+
+.cat-dropdown .arrow.opened {
+  line-height: 10px;
+  transform: rotate(90deg);
+}
+
+.categories .tag,
+.tags .tag {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 150px;
+  width: fit-content;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.categories .close-tag,
+.tags .close-tag {
+  background-color: transparent;
+  border: none;
+  padding: 0 5px;
+  color: var(--defaultDark);
+  cursor: pointer;
+}
+
+.cat-dropdown .options {
+  border: 1px solid var(--defaultDark);
+  margin-top: var(--defaultSmallPadding);
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 30px;
+  background-color: var(--defaultLight);
+  height: fit-content;
+  padding: var(--defaultSmallPadding);
+  padding-top: 0px;
+  border-radius: 6px;
+  z-index: 30;
+}
+
+.cat-dropdown .options span {
+  display: block;
+  max-width: max-content;
+  margin-top: var(--defaultSmallPadding);
+  cursor: pointer;
+}
+
+.submitted {
+  min-height: 855px;
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--defaultPagePadding);
+  text-align: center;
+  margin: auto;
+  padding: var(--defaultSmallPadding);
+}
+
+.submitted div {
+  font-size: 6rem;
+  color: var(--accentColor);
+}
+
+.required {
+  color: #d9534f;
+}
+
+.error-msg {
+  color: #d9534f;
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+
+.global-error {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px 15px;
+  border-radius: 6px;
+  width: 100%;
+  text-align: center;
+}
+
+.has-error {
+  border-color: #d9534f !important;
+}
+
+.empty-hint {
+  font-size: 0.85rem;
+  color: #777;
+  margin-top: 4px;
 }

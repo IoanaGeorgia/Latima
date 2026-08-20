@@ -30,11 +30,12 @@ export const usePoemStore = defineStore('poem', () => {
 
 
 export interface User {
-  name:string
-  created: string
+  username: string
+  mail:string
+  createdAt: string
   in_submission: number
+  
 }
-
 
 export const useUserStore = defineStore('user', () => {
  

@@ -71,9 +71,9 @@
 // ]
 
 
-export const user = {
-    "name":"mew",
-    "created":"378 days",
-    "in_submission":0
-}
+// export const user = {
+//     "name":"mew",
+//     "created":"378 days",
+//     "in_submission":0
+// }
 

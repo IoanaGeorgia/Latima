@@ -7,17 +7,33 @@ import Poem from '@/components/Poem.vue'
 defineProps<{}>()
 
 export interface User {
-  name: string
-  created: string
+  username: string
+  mail:string
+  createdAt: string
   in_submission: number
+  
 }
 
 const poemStore = usePoemStore()
 const userStore = useUserStore()
 
 const poemsByAuthor = computed(() => {
-  if (!userStore.user?.name) return []
-  return poemStore.poems.filter((poem) => poem.author === userStore.user?.name)
+  if (!userStore.user?.username) return []
+  return poemStore.poems.filter((poem) => poem.author === userStore.user?.username)
+})
+
+
+const formattedJoinedDate = computed(() => {
+  const dateStr = userStore.user?.createdAt
+  if (!dateStr) return ''
+
+  const date = new Date(dateStr)
+  
+  return date.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short', 
+    year: 'numeric'
+  })
 })
 
 </script>
@@ -26,11 +42,11 @@ const poemsByAuthor = computed(() => {
   <div class="page-wrapper account-wrapper">
     <div class="account-innerWrapper">
       <p class="title">
-        <span>𓍊𓋼</span> Hi, {{ userStore.user?.name }}!
+        <span>𓍊𓋼</span> Hi, {{ userStore.user?.username }}!
       </p>
 
       <div class="info">
-        <p>You have been with us for: {{ userStore.user?.created }}</p>
+        <p>You have been with us since: {{ formattedJoinedDate }}</p>
         <p>Poems in submission: {{ userStore.user?.in_submission }}</p>
       </div>
 
