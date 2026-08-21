@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { usePoemStore, useUserStore } from '@/stores/poems'
 import { RouterLink } from 'vue-router'
 import Poem from '@/components/Poem.vue'
+import router from '@/router';
 
 defineProps<{}>()
 
@@ -36,6 +37,17 @@ const formattedJoinedDate = computed(() => {
   })
 })
 
+async function logout() {
+  try {
+    await fetch('/api/logout', { method: 'POST' });
+  } catch (err) {
+    console.error("Failed to destroy server session:", err);
+  } finally {
+    userStore.setUser(null);
+     window.location.href = "/";
+  }
+}
+
 </script>
 
 <template>
@@ -48,6 +60,7 @@ const formattedJoinedDate = computed(() => {
       <div class="info">
         <p>You have been with us since: {{ formattedJoinedDate }}</p>
         <p>Poems in submission: {{ userStore.user?.in_submission }}</p>
+        <button @click="logout">Log out</button>
       </div>
 
       <div class="your-poems">
@@ -67,4 +80,8 @@ const formattedJoinedDate = computed(() => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.info button{
+  max-width:fit-content;
+}
+</style>

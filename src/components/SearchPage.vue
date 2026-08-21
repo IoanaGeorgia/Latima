@@ -2,13 +2,14 @@
 import { usePoemStore } from '@/stores/poems'
 import Poem from './Poem.vue';
 import { useUiStore } from '@/stores/poems';
-import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import Loader from './Loader.vue';
 import Error from './Error.vue';
 
 
-defineProps<{
+const props = defineProps<{
+  term: string
 }>()
 
 export interface Poem {
@@ -22,72 +23,68 @@ export interface Poem {
 }
 
 const uiStore = useUiStore();
-const poemStore = usePoemStore()
-const route = useRoute()
+const poemStore = usePoemStore();
+const route = useRoute();
+
 const searchTerm = computed(() => {
   const term = route.params?.term;
   return typeof term === 'string' ? term : '';
 });
 
-let searchedPoems = reactive<Poem[]>([])
 
-
-let isLoading = ref(false)
-
-
-
-onUnmounted(() => {
-  uiStore.closeMenu()
-})
-
-onMounted(() => {
-  isLoading.value = true
-  setTimeout(() => {
-    searchTermFunc()
-  }, 2000)
-
-
-})
-
-
-
+const searchedPoems = ref<Poem[]>([]);
+const isLoading = ref(false);
 
 const searchTermFunc = () => {
-  if (searchTerm.value && typeof searchTerm.value === "string") {
-    for (let poem of poemStore.poems) {
-      if (poem.tags) {
-        let tagHasQuery = poem.tags.find(tag => (tag.toLowerCase().includes(searchTerm.value.toLowerCase())))
-        if (tagHasQuery) {
-          searchedPoems.push(poem)
+  searchedPoems.value = [];
 
-        }
-      }
+  if (searchTerm.value) {
+    const query = searchTerm.value.toLowerCase().trim();
 
-    }
-  isLoading.value = false
+    searchedPoems.value = poemStore.poems.filter(poem => {
+      const matchesTitle = poem.title && poem.title.toLowerCase().includes(query);
+      const matchesAuthor = poem.author && poem.author.toLowerCase().includes(query);
+      const matchesTags = poem.tags && poem.tags.some(tag => tag.toLowerCase().includes(query));
 
+      return matchesTitle || matchesAuthor || matchesTags;
+    });
   }
-}
+
+  isLoading.value = false;
+};
+
+onMounted(() => {
+  isLoading.value = true;
+  setTimeout(() => {
+    searchTermFunc();
+  }, 2000);
+});
+
+onUnmounted(() => {
+  uiStore.closeMenu();
+});
 
 
 watch(
-  () => route.params.term,
-  () => {
-
-   isLoading.value = true
-   searchedPoems = []
-  setTimeout(() => {
-    searchTermFunc()
-  }, 2000)
-
-  }
-);
-
+  () => props.term,
+  (newTerm) => {
+    if (newTerm) {
+      isLoading.value = true
+      searchTermFunc()
+    }
+  },
+  { immediate: true }
+)
 
 </script>
 
+
 <template>
   <div class="page-wrapper">
+     <div class="title-wrapper">
+      <p class="title">🔍︎ : {{ searchTerm }}</p>
+    </div>
+
     <Loader v-if="isLoading" />
     <div v-else class="all-wrapper">
       <div v-if="searchTerm" class="wrapper">
@@ -114,7 +111,6 @@ watch(
   max-width:var(--containerDefaultWidth);
   width:100%;
   margin:auto;
-  margin-top:var(--headerHeight);
 }
 
 .all-wrapper .masonryWrap{
@@ -124,6 +120,10 @@ watch(
 
 .all-wrapper .masonryWrap .item{
   padding-top:20px;
+}
+
+.title-wrapper .title{
+  font-size:3rem;
 }
 
 

@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import Loader from './Loader.vue'
 import { useUserStore } from '@/stores/poems.ts'
-import { RouterLink } from 'vue-router'
 import router from '@/router/index.ts';
 
 defineProps<{}>()
@@ -13,36 +12,17 @@ const isSubmitted = ref(false)
 const isLoading = ref(false)
 
 const userData = ref({
-  username: "",
   mail: "",
   password: "",
-  retype_password: ""
 })
 
 const userErrors = ref({
-  username: "",
   mail: "",
   password: "",
-  retype_password: "",
   callError: ""
 })
 
 function validateData() {
-
-  // username validation
-  if (!userData.value.username) {
-    userErrors.value.username = "Username is required"
-  }
-  else if (userData.value.username.length < 2) {
-    userErrors.value.username = "Minimum 3 characters"
-
-  }
-  else if (userData.value.username.length > 21) {
-    userErrors.value.username = "Maximum 20 characters allowed"
-  }
-  else {
-    userErrors.value.username = ""
-  }
 
   // mail validation
 
@@ -73,15 +53,6 @@ function validateData() {
     userErrors.value.password = "";
   }
 
-  // type password again verification
-  if (!userData.value.retype_password) {
-    userErrors.value.retype_password = "Please type your password again"
-  } else if (userData.value.retype_password !== userData.value.password) {
-    userErrors.value.retype_password = "Password don't match!"
-  }
-  else {
-    userErrors.value.retype_password = "";
-  }
 
   const hasErrors = Object.entries(userErrors.value).some(
     ([key, error]) => key !== "callError" && error !== ""
@@ -96,36 +67,37 @@ function validateData() {
 
 }
 
-
 async function submitData() {
-  isLoading.value = true;
   userErrors.value.callError = "";
+  isLoading.value = true;
 
   try {
-    const response = await fetch("/api/createUser", {
+    const response = await fetch("/api/loginUser", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(userData.value),
       credentials: "include" 
-    });
+
+    })
+
 
     const result = await response.json();
-
     if (!response.ok) {
-      userErrors.value.callError = result.error || "An error has occurred, please try again later!";
-      return;
+      userErrors.value.callError = result.message || "An error has occurred, please try again later!"
+      return
     }
 
     userStore.setUser(result.data);
 
     isSubmitted.value = true;
 
+
   } catch (err) {
-    userErrors.value.callError = "Network error, please try again later.";
+    userErrors.value.callError = "An error has occured, please try again later"
   } finally {
-    isLoading.value = false;
+    isLoading.value = false
   }
 }
 
@@ -139,32 +111,21 @@ function goHome(){
 <template>
   <div class="page-wrapper register-wrapper">
     <div class="title-wrapper">
-      <p class="title">Sign up</p>
+      <p class="title">Login</p>
     </div>
 
     <div v-if="isSubmitted">
       <Loader v-if="isLoading" />
       <div v-else class="submitted">
-        <p><strong>Thank you for registering!</strong></p>
+        <p><strong>Login successful</strong></p>
         <p>To access your account, please refresh this page!</p>
         <button @click="goHome">Refresh</button>
         <div>𓆏</div>
       </div>
     </div>
     <div v-else class="form-wrapper">
-      <p class="note">After signing up, you will be able to share your poems with others and also save poems your
-        favourite poems.
-        All you need is a your email and a chosen poem. <br>
-        Have fun reading!
-      </p>
-
 
       <form class="container">
-        <div class="input-wrapper">
-          <label for="username">Username</label>
-          <input id="username" v-model="userData.username" placeholder="Your username here">
-          <p class="error-msg" v-if="userErrors.username">{{ userErrors.username }}</p>
-        </div>
 
         <div class="input-wrapper">
           <label for="mail">Email</label>
@@ -179,37 +140,32 @@ function goHome(){
           <p class="error-msg" v-if="userErrors.password">{{ userErrors.password }}</p>
         </div>
 
-        <div class="input-wrapper">
-          <label for="retype_password">Type password again</label>
-          <input id="retype_password" v-model="userData.retype_password" placeholder="Type password again">
-          <p class="error-msg" v-if="userErrors.retype_password">{{ userErrors.retype_password }}</p>
-        </div>
-
         <p class="error-msg" v-if="userErrors.callError">{{ userErrors.callError }}</p>
-        <button type="submit" @click.prevent="validateData">Register</button>
+        <button type="submit" @click.prevent="validateData">Login</button>
 
       </form>
 
-       <div class="login">
-        <p>Already have an account?</p>
-
-          <RouterLink to="/login">
-            <button>Login
-            </button>
-          </RouterLink>
+      <div class="login">
+        <p>Don't have an account yet?</p>
+        <RouterLink to="/register">
+          <button>Register
+          </button>
+        </RouterLink>
       </div>
 
     </div>
   </div>
 </template>
 
+
+
 <style scoped>
 .login {
   max-width: 500px;
   width: 100%;
   margin: auto;
-  padding-top: 2rem;
-  padding-bottom: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;

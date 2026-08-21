@@ -175,6 +175,7 @@ li {
   max-width: 50px;
   overflow: clip;
   text-overflow: ellipsis;
+  font-weight: bold;
 }
 
 input {

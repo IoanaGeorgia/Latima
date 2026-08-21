@@ -15,19 +15,17 @@ onMounted(async () => {
   await Promise.all([getUser(), getPoems(), getCategories()])
 })
 
-async function getUser(){
-  const userInfo = localStorage.getItem("user");
+async function getUser(): Promise<void>{
   try{
     const response = await fetch("/api/getUser", {
-      method:"POST",
-       headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ secret: userInfo })
+      method: "GET",
+      credentials: "include" 
     })
 
     if(!response.ok){
+      userStore.setUser(null);
       console.log("User couldn't be fetched")
+      return;
     }
 
     const result = await response.json()
@@ -38,13 +36,13 @@ async function getUser(){
   }
 }
 
-
 async function getPoems(): Promise<void> {
   try {
     const response = await fetch('/api/poems')
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`)
+      console.log("Poems couldn't be fetched")
+      return;
     }
     
     const result = await response.json()

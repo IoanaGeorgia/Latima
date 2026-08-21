@@ -27,7 +27,7 @@ let timeoutId: any = null
 
 
 watch(route, () => {
-
+  searchTerm.value = ""
   isMobileOpen.value = false
 
 })
@@ -74,7 +74,7 @@ const sendSearchDirect = () => {
       <div class="buttons desktop">
         <div class="search-wrapper">
           <input v-model.trim="searchTerm" type="text" placeholder="Type here to search"
-            @keyup.enter="sendSearchDirect"></input>
+            @keyup.enter="sendSearchDirect" maxlength="15"></input>
           <button class="search-btn" @click="sendSearch">🔍︎
 
           </button>
@@ -106,7 +106,7 @@ const sendSearchDirect = () => {
           </RouterLink>
           <div class="search-wrapper">
             <input v-model.trim="searchTerm" type="text" placeholder="Type here to search"
-              @keyup.enter="sendSearchDirect"></input>
+              @keyup.enter="sendSearchDirect" maxlength="15"></input>
             <button class="search-btn" @click="sendSearch" aria-label="search" title="search">🔍︎
 
             </button>

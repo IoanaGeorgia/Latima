@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import WelcomePage from '@/components/WelcomePage.vue' 
+import { useUserStore } from '@/stores/poems'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,7 @@ const router = createRouter({
       path: '/add-poem',
       name: 'addPoem',
       component: () => import('@/components/AddPoem.vue'),
+      meta: { requiresAuth: true }
     },
     {
       path: '/poems',
@@ -24,18 +26,45 @@ const router = createRouter({
       path: '/search/:term',
       name: 'searchPage',
       component: () => import('@/components/SearchPage.vue'),
+      props: true
     },
     {
       path:'/account',
       name:'account',
-      component: () => import('@/components/Account.vue')
+      component: () => import('@/components/Account.vue'),
+      meta: { requiresAuth: true }
     },
      {
       path:'/register',
       name:'register',
-      component: () => import('@/components/Register.vue')
-    }
-  ],
+      component: () => import('@/components/Register.vue'),
+      meta: { requiresGuest: true }
+    },
+   {
+      path:'/login',
+      name:'login',
+      component: () => import('@/components/Login.vue'),
+      meta: { requiresGuest: true }
+    }  ],
+})
+
+
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore()
+
+  if (userStore.user === null) {
+    await getUser() 
+  }
+
+  if (to.meta.requiresAuth && !userStore.user) {
+    return next({ name: 'login' })
+  }
+
+  if (to.meta.requiresGuest && userStore.user) {
+    return next({ name: 'home' })
+  }
+
+  next()
 })
 
 router.afterEach(() => {
@@ -52,5 +81,26 @@ router.afterEach(() => {
     })
   })
 })
+
+
+
+async function getUser(): Promise<void>{
+    const userStore = useUserStore()
+  try{
+    const response = await fetch("/api/getUser")
+
+    if(!response.ok){
+      userStore.setUser(null);
+      console.log("User couldn't be fetched")
+      return;
+    }
+
+    const result = await response.json()
+    userStore.setUser(result.data)
+  }
+  catch(err){
+    console.log("User couldn't be fetched")
+  }
+}
 
 export default router

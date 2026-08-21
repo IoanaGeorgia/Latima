@@ -1,10 +1,21 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { useRouter } from 'vue-router'; 
 import PoemSymbol from './PoemSymbol.vue';
 import { useUiStore } from '@/stores/poems';
 
 const uiStore = useUiStore();
+const router = useRouter();
 
+function searchPage(term: string) {
+  if (!term) return;
+
+  router.push({
+    name: 'searchPage',
+    params: { term: term }
+  });
+
+  uiStore.closeMenu();
+}
 </script>
 
 <template>
@@ -19,7 +30,7 @@ const uiStore = useUiStore();
           <div class="wrapper">
             <p class="author note">
               Written by
-              <span class="author-name">{{ uiStore.activePoem.author || 'Anonymous' }}</span>
+              <span class="author-name" @click="searchPage(uiStore.activePoem.author)">{{ uiStore.activePoem.author || 'Anonymous' }}</span>
               in <span>{{ uiStore.activePoem.main_category }}</span>
             </p>
 
@@ -29,7 +40,7 @@ const uiStore = useUiStore();
               <p>Categories: </p>
               <div>
                 <div v-for="category in uiStore.activePoem.categories" :key="category">
-                  <span>{{ category }}</span>
+                  <span >{{ category }}</span>
                 </div>
               </div>
             </div>
@@ -37,7 +48,8 @@ const uiStore = useUiStore();
             <div v-if="uiStore.activePoem.tags.length" class="tags note">
               <p>Tags: </p>
               <div>
-                <div v-for="tag in uiStore.activePoem.tags?.slice(0, 10)" :key="tag">
+                <div v-for="tag in uiStore.activePoem.tags?.slice(0, 10)" :key="tag"
+                @click="searchPage(tag)" >
                   #{{ tag }}
                 </div>
               </div>
